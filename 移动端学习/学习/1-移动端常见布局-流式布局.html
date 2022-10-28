@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" user-scalable="no",
+    maximum-scale="1.0",minimum-scale=1.0>
+    <!-- width=device-width宽度等于设备宽度 -->
+    <!-- user-scalable=no 禁止用户缩放-->
+    <!-- maximum，minimum-scale最大最小缩放比为1 -->
+    <title>移动端常见布局</title>
+    <style>
+            /* 流式布局：盒子百分比分布，随着页面大小改变 例如京东移动端页面 */
+            * {
+                margin: 0;
+            }
+        section {
+            width: 100%;;
+            margin: 0 auto;
+            /* 增加最大最小范围保护内容 */
+            max-width: 1200px;
+            min-width: 320px;
+        }
+        section div {
+            /* 浮动使盒子放在同一行 */
+            float: left;
+            width: 50%;
+            height: 400px;
+        }
+        section div:nth-child(1) {
+            background-color: skyblue;
+        }
+        section div:nth-child(2) {
+            background-color: yellow;
+        }
+        img a {
+                  /* 消除移动端长按后的弹出菜单 */
+            -webkit-touch-callout: none;
+            /* 消除按钮自定义的样式 */
+            -webkit-appearance: none;
+            /* 消除点击的高亮状态 */
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div></div>
+        <div></div>
+        <a href="">加油，坚持</a>
+        <input type="button" value="按钮">
+    </section>
+</body>
+</html>

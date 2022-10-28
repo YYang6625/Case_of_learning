@@ -1,0 +1,180 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.w {
+    width: 1200px;
+    margin: 0 auto;
+}
+header {
+    /* 子盒子给了margin值出现坍塌，父盒子添加overflow：hidden消除坍塌现象 */
+    overflow: hidden;
+    height: 84px;
+    border-bottom: 2px solid #b1191a;
+}
+/* 也可以利用定位制作 */
+.logo {
+    margin-top: 20px;
+    width: 180px;
+    height: 70px;
+}
+/* a链接(非块级元素)背景改照片要给高和宽 */
+.logo a {
+    display: block;
+    overflow: hidden;
+    width: 100%;
+    height: 70px;
+    text-indent: -9999px;
+    background: url(../images/logo.png) no-repeat;
+}
+.registerarea {
+    height: 522px;
+    border: 1px solid #ccc;
+    margin-top: 100px;
+}
+.reform-hd {
+    height: 40px;
+    line-height: 40px;
+    background-color: #ececec;
+    border-bottom: 1px solid #dfdfdf;
+}
+.reform-hd i {
+    float: left;
+    padding-left: 10px;
+    font-size: 18px;
+}
+.reform-hd span {
+    float: right;
+    padding-right: 10px;
+    font-size: 14px;
+}
+.reform-hd span a {
+    color: #b1191a;
+}
+.reform-bd {
+    width: 560px;
+    height: 370px;
+    margin:60px auto 0;
+}
+/* 转化为行内块，右对齐 */
+.reform-bd ul li {
+    margin-bottom: 20px;
+}
+.reform-bd ul li:nth-child(3) {
+    margin-bottom: 10px;
+}
+.reform-bd ul li:nth-child(4) {
+    margin-left: 158px;
+}
+.reform-bd ul li label {
+    display: inline-block;
+    width: 88px;
+    font-weight: 700;
+    text-align: right;
+}
+.reform-bd ul li .inp {
+    width: 242px;
+    height: 37px;
+    border: 1px solid #ccc;
+}
+.error,.success {
+    display: inline-block;
+    color: #c81524;
+    margin-left: 10px;
+}
+/* 错误图标，转成行内块 */
+.error_icon,.success_icon{
+    display: inline-block;
+    /* 使文字对于图片居中，不够居中再利用margin修正 */
+    vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    background: url(../images/矩形8.png) no-repeat;
+    margin-top: -3px;
+}
+.success {
+    color: #40b83f;
+}
+/* 分别设置错位与正确，后期js调用 */
+.success_icon {
+    background: url(../images/矩形8.png) no-repeat;
+}
+.safe em {
+    display: inline-block;
+    padding: 0 12px;
+    color: #dfdfdf;
+}
+.safe .ruo {
+    background-color: #de1111;
+}
+.safe .zhong {
+    background-color: #40b83f;
+}
+.safe .qiang {
+    background-color: #f79100;
+}
+/* 之间在agree上加居中不会被继承下去,需要在input这个行内块上添加middle */
+.agree {
+    padding-left: 90px;
+}
+.agree input{
+    margin-right: 10px;
+    margin-top: -2px;
+    vertical-align: middle;
+}
+.agree a {
+    color: skyblue;
+}
+/* 直接将盒子挤下去 */
+.sub {
+    margin-top: 45px;
+    margin-left: 115px;
+    width: 200px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    background-color: #c81623;
+}
+.footer {
+    margin-top: 70px;
+    height: 120px;
+    font-size: 12px;
+    color: #666;
+    text-align: center;
+}
+.mod_copyright,.link{
+    margin-left: 50px;
+    margin-bottom: 20px;
+}
+.mod_copyright ul li{
+    float: left;
+    position: relative;
+    padding: 0 16px;
+}
+.copyright h5 {
+    font-weight: 400;
+}
+/* 利用伪元素制作小竖线 */
+.mod_copyright ul li:nth-child(-n+11):after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    content: '';
+    width: 1px;
+    height: 12px;
+    margin-top: 4px;
+    background-color: #666;
+}
+/* 利用小li制作小竖线 */
+.link ul li {
+    float: left;
+    margin: 0 8px;
+}
+.footer .link ul li:nth-child(even){
+    width: 1px;
+    height: 12px;
+    margin-top: 3px;
+    background-color: #666;
+}
+/* 还有单独给竖线一个span,span转为行内块给左右padding值 */

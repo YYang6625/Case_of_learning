@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>小熊奔跑动画制作</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background-color: #ccc;
+      }
+      .b {
+        overflow: hidden;
+        position: absolute;
+        top: 100%;
+        width: 100%;
+        height: 350px;
+        transform: translate(0, -100%);
+        background: url(media/bg1.png) no-repeat;
+        animation: r 50s linear infinite;
+      }
+      .bear {
+        overflow: hidden;
+        position: absolute;
+        top: 100%;
+        transform: translate(-50%, -100%);
+        width: 200px;
+        height: 100px;
+        background: url(media/bear.png) no-repeat;
+        /* 用逗号隔开同时添加多个效果 */
+        animation: bear 0.6s steps(8) infinite, b 1.5s forwards;
+        /* 按照小熊的八个图案分为八步，每帧轮流播放增加速度，制作帧动画 */
+      }
+      @keyframes bear {
+        0% {
+          background-position: 0 0;
+          /* 小熊是背景，利用背景移动制作动画效果。 */
+        }
+        100% {
+          background-position: -1600px 0;
+        }
+      }
+      @keyframes r {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 100% 0;
+        }
+      }
+      @keyframes b {
+        0% {
+          left: 0;
+        }
+        100% {
+          left: 50%;
+          transform: translate(-50%, -100%);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="b"></div>
+    <div class="bear"></div>
+  </body>
+</html>

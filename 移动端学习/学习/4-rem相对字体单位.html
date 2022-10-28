@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>rem相对大小（root em）</title>
+        <!-- rem是相对html设置的字体根元素的字体大小 -->
+    <style>
+        html {
+            font-size: 15px;
+        }
+        /* em是相对父级盒子字体大小计算 */
+        div {
+            margin: 0 auto;
+            font-size: 1rem;
+            width: 30rem;
+            /* rem是相对html设置的字体大小决定 */
+            height: 20rem;
+            text-align: center;
+            line-height: 20rem;
+            background-color: skyblue;
+        }
+        /* rem优点：rem的优点就是可以通过修改html里面的文字大小来改变页面中元素的大小可以实现整体控制 */
+
+    </style>
+</head>
+<body>
+    <div>rem修改盒子内文字与修改盒子宽度</div>
+</body>
+</html>

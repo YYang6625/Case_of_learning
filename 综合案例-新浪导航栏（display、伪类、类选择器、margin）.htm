@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>新浪导航</title>
+    <style>
+        /* 修饰div盒子 */
+        .nav {
+
+            height: 41px;
+            border-top: 3px solid #ff8500;
+            border-bottom: 1px solid #edeef0;
+            background-color: #fcfcfc;
+            line-height: 41px;
+        }
+
+        /* 将a转化为块之后的修饰块的属性效果 */
+        .nav a {
+            display: inline-block;
+            height: 41px;
+            font-size: 16px;
+            color: #4c4c4c;
+            text-decoration: none;
+            padding: 0 20px;
+        }
+
+        /* padding会影响盒子的高和宽，要在盒子基础上减去padding */
+
+        /* 引入链接伪类选择器使鼠标移动至后产生效果 */
+        .nav a:hover {
+            background-color: #eee;
+            color: #ff8500;
+        }
+
+
+        .nav .xinlang {
+            margin-right: 270px;
+        }
+
+        .nav .shouji {
+            margin-right: 270px;
+        }
+
+        .nav .yidong {
+            margin-right: 270px;
+        }
+
+        .nav .weiobo {
+            margin-right: 270px;
+        }
+
+        .nav .sange {
+            margin-left: 270px;
+        }
+
+        /* 盒子模型外边距margin(控制盒子之间的距离)
+        和padding的复合用法一致 */
+        /* 修饰div里面的a */
+    </style>
+</head>
+
+<body>
+    <div class="nav">
+        <a href="#" class="xinlang">新浪导航</a>
+        <a href="#" class="shouji">手机新浪网</a>
+        <a href="#" class="yidong">移动客户端</a>
+        <a href="#" class="weibo">微博</a>
+        <a href="#" class="sange">三个字</a>
+    </div>
+
+</body>
+
+</html>

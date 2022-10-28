@@ -1,0 +1,469 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* 版心 */
+.w {
+    width: 1200px;
+    margin: auto;
+}
+
+li {
+    list-style: none;
+}
+
+body {
+    background-color: #f3f5f7;
+}
+
+img {
+    background-repeat: no-repeat;
+}
+
+a {
+    text-decoration: none;
+}
+
+.box-bd ul li img {
+    width: 100%;
+}
+
+/* 头部 */
+.header {
+    height: 42px;
+    margin: 30px auto;
+    /* 注意此处会层叠.w的margin */
+    /* 在header内部编写margin后内部的块就不需要每一个给margin-top往下移了 */
+}
+
+.header .logo {
+    float: left;
+    width: 198px;
+    height: 42px;
+}
+
+/* 导航栏部分 */
+.nav {
+    float: left;
+    margin-left: 60px;
+}
+
+.nav ul li {
+    float: left;
+    /* font-size: 18px;
+    height: 42px;
+    padding: 0 10px;
+    line-height: 42px;
+    margin-top: 30px; */
+}
+
+/* 如果这里给li设置高度和padding撑开大小，则超链接a内只有文字起效，空白处无，用户体验效果不佳，一般导航都是将a转化为盒子设置高度，调整位置起到良好的超链接点击效果 */
+/* 所以一般给a转化成块级元素 */
+
+.nav ul li a {
+    display: block;
+    height: 42px;
+    padding: 0 10px;
+    line-height: 42px;
+    font-size: 18px;
+    color: #050505;
+}
+
+/* nav导航栏没有给宽度，方便后面加文字 */
+.nav ul li a:hover {
+    border-bottom: 2px solid #00a4ff;
+}
+
+/* search搜索部分 */
+/* 先设置整个盒子的大小再在内部设置input和button */
+.search {
+    float: left;
+    width: 412px;
+    height: 42px;
+    margin-left: 70px;
+}
+
+.search input {
+    float: left;
+    width: 358px;
+    height: 40px;
+    border: 1px solid #00a4ff;
+    font-size: 14px;
+    text-indent: 10px;
+    color: #c6c7c7;
+    border-right: 0;
+    /* 使右边无边框不再出现颜色重叠 */
+}
+
+.search button {
+    /* button默认有边框 */
+    /* 行内块之间默认有缝隙，所以刚好和盒子一样大时会掉下去，可以加float使无缝衔接 */
+    float: left;
+    width: 50px;
+    height: 42px;
+    border: none;
+    background: url(images/fa-search.png);
+    /* 背景引用图片 */
+}
+
+/* user部分 */
+.user {
+    float: left;
+    width: 42px;
+    margin-left: 70px;
+    padding-top: 7px;
+}
+
+/* banner部分 */
+.banner {
+    height: 421px;
+    background-color: #1c036c;
+}
+
+.banner .w {
+    height: 421px;
+    background: url(images/banner2.png) no-repeat top center;
+}
+
+.subnav {
+    float: left;
+    width: 190px;
+    height: 421px;
+    background: rgba(0, 0, 0, .3);
+}
+
+.subnav ul li {
+    height: 46px;
+    width: 150px;
+    padding: 0 20px;
+    /* padding就是在subnav的左右基础上减去20px，成了一个w150的盒子 */
+}
+
+.subnav ul li a {
+    display: block;
+    height: 45px;
+    line-height: 45px;
+    font-size: 14px;
+    color: #fff;
+}
+
+.subnav ul li a span {
+    display: block;
+    float: right;
+}
+
+.subnav ul li a:hover {
+    color: #00a4ff;
+}
+
+/* course部分 */
+.course {
+    float: right;
+    width: 230px;
+    height: 300px;
+    /* 浮动的盒子不会出现盒子塌陷 */
+    margin-top: 50px;
+    background-color: #fff;
+}
+
+.course h2 {
+    height: 48px;
+    line-height: 48px;
+    text-align: center;
+    background-color: #9bceea;
+    font-size: 18px;
+    color: #fff;
+}
+
+.course .bd {
+    padding: 0 20px;
+}
+
+.course .bd ul li {
+    padding: 14px 0;
+    border-bottom: 1px solid #efefef;
+}
+
+.course .bd ul li h4 {
+    font-size: 16px;
+}
+
+.course .bd ul li p {
+    font-size: 12px;
+    color: #ccc;
+}
+
+.course .bd .more {
+    display: block;
+    height: 38px;
+    border: 1px solid #00a4ff;
+    text-align: center;
+    line-height: 38px;
+    margin-top: 7px;
+    color: #00a4ff;
+    font-weight: 700;
+    /* 书写顺序：块模式  块编排 文字编排 文字 */
+}
+
+.goods {
+    height: 60px;
+    line-height: 60px;
+    margin-top: 8px;
+    box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+    /* 水平像素 垂直像素 3px均为模糊距离（负值向内模糊，正值向外）  颜色透明度*/
+}
+
+.goods h3 {
+    float: left;
+    margin-left: 12px;
+    color: #00a4ff;
+}
+
+.mod {
+    float: right;
+    margin-right: 26px;
+    font-size: 14px;
+    color: #00a4ff;
+}
+
+.goods ul {
+    float: left;
+    margin-left: 34px;
+}
+
+.goods ul li {
+    float: left;
+}
+
+.goods ul li a {
+    /* display: block; */
+    /* 如果这里转化成块元素，则会一级一级继承行高60px
+两种方法1：不转化  2：给li设置高度 */
+    padding: 0 30px;
+    border-left: 1px solid #bfbfbf;
+    font-size: 16px;
+    color: #050505;
+}
+
+.box-hd {
+    height: 42px;
+    margin-top: 35px;
+}
+
+.box-hd h3 {
+    display: block;
+    float: left;
+    font-weight: 400;
+    font-size: 20px;
+}
+
+.box-hd a {
+    display: block;
+    float: right;
+    margin-top: 8px;
+    margin-right: 20px;
+    font-size: 12px;
+    color: #b1b1b1;
+}
+
+.box-bd ul {
+    width: 1225px;
+}
+
+.box-bd ul li {
+    float: left;
+    width: 228px;
+    height: 270px;
+    background-color: #fff;
+    margin: 0 15px 15px 0;
+    /* 盒子阴影设置 */
+    box-shadow: 0 2px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.box-bd ul li h3 {
+    margin-top: 25px;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #050505;
+    font-weight: 400;
+}
+
+.box-bd ul li p {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #999;
+    padding: 0 20px;
+}
+
+.box-bd ul li span {
+    color: #ff7c2d;
+}
+
+.bc-hd {
+    height: 64px;
+    line-height: 64px;
+}
+
+.bc-hd h3 {
+    float: left;
+    font-size: 20px;
+    color: #494949;
+}
+
+.bc-hd .more {
+    float: right;
+    margin-right: 25px;
+    font-size: 12px;
+    color: #868686;
+}
+
+.bc-hd ul {
+    margin-left: 380px;
+}
+
+.bc-hd ul li {
+    float: left;
+}
+
+.bc-hd ul li a {
+    padding: 0 35px;
+    font-size: 16px;
+    color: #868686;
+}
+
+.bc-hd ul li a:hover {
+    color: #00a4ff;
+}
+
+.bc-bd {
+    height: 391px;
+}
+
+.bc-bd .left img {
+    float: left;
+}
+
+.bc-bd .right img {
+    float: right;
+}
+
+.bc-bd ul {
+    float: right;
+}
+
+.bc-bd ul li {
+    float: right;
+    margin-left: 15px;
+    margin-top: 20px;
+    width: 228px;
+    height: 270px;
+    background-color: #fff;
+}
+
+.bc-bd ul li img {
+    width: 100%;
+}
+
+.bc-bd ul li a {
+    float: left;
+}
+
+.bc-bd ul li h3 {
+    display: block;
+    float: left;
+    width: 188px;
+    height: 38px;
+    font-weight: 400;
+    margin: 25px 0;
+    padding: 0 20px;
+    font-size: 14px;
+    color: #050505;
+}
+
+.bc-bd ul li p {
+    float: left;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    font-size: 12px;
+    color: #868686;
+}
+
+.bc-bd ul li span {
+    color: #ff7c2d;
+}
+
+.footer {
+    height: 400px;
+    margin-top: 50px;
+    background-color: #fff;
+}
+
+.footer .w .link {
+    float: left;
+}
+
+.footer .w .copy {
+    float: right;
+}
+
+/* footer .w {
+    float: left;
+}
+/* 错误因为w浮动到footer的左边 */
+
+.footer .link p {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #868686;
+}
+
+.footer .link img {
+    margin-top: 20px;
+}
+
+.footer .link a {
+    display: block;
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    margin-top: 50px;
+    border: 1px solid #00a4ff;
+    font-size: 16px;
+    color: #00a4ff;
+}
+
+.footer .copy {
+    margin: 30px;
+    margin-right: 20px;
+}
+
+.footer .copy dl {
+    float: right;
+    margin-left: 120px;
+}
+
+.footer .copy dl dt {
+    margin-bottom: 10px;
+}
+
+.footer .copy dl a {
+    font-size: 12px;
+    color: #868686;
+}

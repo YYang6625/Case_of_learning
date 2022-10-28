@@ -1,0 +1,4 @@
+和webpack一样，进入文件夹
+1.npm init vite@latest   起名
+2.选择 vue - ts
+3.进入项目初始化 npm install

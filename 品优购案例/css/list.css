@@ -1,0 +1,135 @@
+ /* 列表页专有css */
+ .nav {
+    overflow: hidden;
+ }
+.sk {
+    position: absolute;
+    padding-left: 10px;
+    left: 185px;
+    top: 40px;
+    border-left: 1px solid #b1191a;
+ }
+.sk-list,.sk-con{
+    float: left;
+ }
+.sk-list ul li,.sk-con ul li {
+    float: left;
+ }
+ .sk-list ul li {
+    font-size: 16px;
+    font-weight: 700;
+    padding: 0 28px;
+ }
+.sk-con {
+    position: relative;
+    margin-left: 30px;
+}
+.sk-con ul li {
+    font-size: 14px;
+    line-height: 50px;
+    padding: 0 23px;
+ }
+ /* 更多分类右边小三角的制作 */
+ .sk-con ul li:last-child::after {
+    position: absolute;
+    content: '';
+    top: 18px;
+    right: 7px;
+    width: 7px;
+    height: 7px;
+    border-bottom: 1px solid #666;
+    border-right: 1px solid #666;
+    transform: rotate(45deg);
+ }
+.sk_bd ul li {
+    overflow: hidden;
+    margin-right: 10px;
+    margin-top: 20px;
+    float: left;
+    width: 290px;
+    height: 460px;
+    border: 1px solid #b1191a;
+}
+.sk_bd ul li:nth-child(4n) {
+    margin-right: 0;
+}
+.sk_bd_img:hover img {
+    transform: translateX(8px);
+}
+.sk_bd_img img {
+    width: 100%;
+    transition: all 0.5s;
+}
+.sk_bd_name {
+    height: 36px;
+    font-size: 14px;
+    color: #747474;
+    margin: 5px 12px 12px;
+}
+.sk_bd_price {
+    margin: 0 12px 12px;
+    height: 18px;
+    line-height: 18px;
+}
+.sk_bd_price em,i {
+    color: #e60012;
+}
+.sk_bd_price em{
+    font-size: 14px;
+}
+.sk_bd_price i {
+    font-size: 18px;
+}
+.sk_bd_price span{
+    display: inline-block;
+    padding-left: 50px;
+    font-size: 14px;
+    color: #a4a4a4;
+    text-decoration: line-through;
+}
+.sk_bd_progress{
+    position: relative;
+    height: 16px;
+    line-height: 13px;
+}
+.sk_bd_progress span,i {
+    position: absolute;
+}
+.sk_bd_progress span {
+    top: 0;
+    left: 10px;
+}
+.sk_bd_progress i {
+    top: 0;
+    right: 10px;
+}
+.sk_bd_progress .progress{
+    overflow: hidden;
+    width: 135px;
+    height: 14px;
+    margin-left: 73px; ;
+    margin-top: 2px;
+    border: 1px solid #ed282e;
+    border-radius: 7px;
+}
+/* 百分比红框效果，说做动画给谁加 */
+.progress .progress-in {
+    width: 20%;
+    height: 100%;
+    background-color: #ed282e;
+    transition: all 0.5s;
+}
+.sk_bd_progress:hover .progress-in{
+    width: 87%;
+}
+.sk_bd_buy {
+    margin-top: 14px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 20px;
+    text-align: center;
+    background-color: #b1191a;
+}
+.sk_bd_buy a {
+    color: #fff;
+}

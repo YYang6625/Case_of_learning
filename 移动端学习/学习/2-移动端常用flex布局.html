@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS3-flex弹性布局</title>
+    <!-- 使用flex后不分行内块等元素，均化作块级元素无需清除浮动 -->
+    <!-- 给父级或者body添加display:flex,父级或者网页就看做flex容器,所有子容器自动转化为容器成员 -->
+    <!-- 要注意主轴方向性问题，默认x轴，可修改为y轴 -->
+    <!-- flex-flow是flex-direction与flex-warp的复合写法 -->
+    <style>
+      body {
+        width: 100%;
+        height: 100vh;
+        /* vh为视口百分高度,100vh百分之百视口高度 */
+        display: flex;
+        /* 以下主轴水平x轴，侧轴为纵轴y时，x轴上的项目分布含义 */
+        justify-content: center;
+        /* 沿着位于主轴（x轴）居中对齐 */
+        justify-content: flex-end;
+        /* 项目位于主轴（x轴）靠右对齐 */
+        justify-content: space-between;
+        /* 项目在主轴（x）左右两端贴边后项目列间距相等 */
+        justify-content: space-around;
+        /* 项目在x横轴上，平分剩余容器空间，相当于剩余空间分给了项目之间左右margin值，
+            所以项目与项目间的距离是项目与flex边框的两倍 */
+        justify-content: space-evenly;
+        /* x轴方向上，项目之间距离与项目到容器之间的距离相等(间距全等) */
+        /*  */
+        /*  */
+        /* 以下主轴水平x轴，侧轴为纵轴y时，y轴上的项目分布含义（多行运用，单行失效，以行为单位） */
+        align-content: center;
+        /* 使多行项目位于侧轴（y轴）居中 */
+        align-content: flex-end;
+        /* 多行项目位于侧轴（y轴）底部对齐 */
+        align-content: space-between;
+        /* 以行为单位，每行项目在侧轴（y）上下两端贴边对齐后每行项目间距相等 */
+        align-content: space-around;
+        /* 项目在侧轴y上，将所剩余空间分给每行上下相等间距相当于剩余空间分给了每行项目上下margin值，
+            所以每行项目与每行项目间的距离是项目与flex边框的两倍 */
+        align-content: space-evenly;
+        /* y轴方向上，行项目之间距离与项目到容器之间的距离相等(间距全等) */
+        /*  */
+        /*  */
+        /* 以下主轴x，侧轴y位置改变后排列含义，单行时运用 */
+        /* 方向反转后改变 */
+        align-items: flex-start;
+        /* （默认）纵轴y轴位于顶部 容器排列在左上依次排列 */
+        align-items: center;
+        /* 使纵轴y轴位于flex容器中间排列(项目主轴位于容器居中依次排列) */
+        align-items: flex-end;
+        /* 使纵轴y轴位于底部 (项目居于底部且靠依次排列) */
+        /*  */
+        /*  */
+        /* 项目排序 */
+        flex-direction: row;
+        /* （默认）容器主轴为x轴按照排序123排列靠左 */
+        flex-direction: row-reverse;
+        /* 主轴x轴，但是方向反转，项目排序也将反转且靠右 */
+        flex-direction: column;
+        /* 主轴变成纵轴y，侧轴变为横轴x，项目在y轴上按列自上到下依次排列 */
+        flex-direction: column-reverse;
+        /* 主轴变成纵轴y，侧轴变为横轴x，项目在y轴上按列自下到上依次排列 */
+        flex-wrap: nowrap;
+        /* 默认情况下是强行放置一行内且改变将盒子宽度等分
+               设置warp后才会自动换行  */
+        /*  */
+        /*  */
+        /* 项目容器属性 */
+        /* order:order 越大排序越后 */
+        /* align-self允许单个项目侧轴位置的控制，与其他项目不一样的的对齐方式，可覆盖align-items */
+        flex: 1;
+        /* flex:1将剩余空间按项目分为1分，为n时分为n份，
+            ，数值越大盒子内分配越多，视口变化时也等比变化（京东搜索框） */
+        flex-shrink: 1;
+        /* flex-shrink为1时随视口缩小等比缩小，flex-shrink为0不缩小，即使空间不够 */
+      }
+      .box {
+        width: 300px;
+        height: 300px;
+        background-color: skyblue;
+      }
+    </style>
+  </head>
+  <body>
+    <div class=".box">开启flex布局之后子容器将沿着主轴进行排列</div>
+    <div class=".box">设置flex之后,存在水平主轴main-axis与纵轴cross axis</div>
+    <div class=".box">
+      分别有从左至右(与边框交叉点)的main start~main end于送上至下的cross
+      start与cross end
+    </div>
+  </body>
+</html>

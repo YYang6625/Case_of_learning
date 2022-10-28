@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>媒体查询，rem相对单位</title>
+    <!-- 响应式布局：指一套页面，能够适配多种终端，比如宽屏pc电脑，平板，手机，听起来极为的棒，但是，响应式布局极容易出现各式各样的兼容问题，目前社会主流布局方案，依然是单独制作移动端页面，所以对响应式，只要抱着能看懂，能做出简单的网页布局即可。 -->
+    <!-- 媒体类型：all screen print（打印机） -->
+    <style>
+        @media screen and (max-width:960px){
+            html {
+                font-size: 50px;
+            }
+            div {
+                background-color: skyblue;
+            }
+        }
+        @media screen and (min-width:960px){
+            html {
+                font-size: 100px;
+            }
+            div {
+                background-color: yellow;
+            }
+        }
+        div {
+            margin-top: 300px;
+            width: 100%;
+            height: 2rem;
+            text-align: center;
+            line-height: 2rem;
+            font-size: 1rem;
+        }
+    </style>
+    <!-- 利用不同屏幕尺寸来展现不同样式 -->
+    <!-- 大于宽度320px时才显示320pxcss样式 -->
+    <link rel="stylesheet" href="320px.css" media="screen and (min-width: 320px)">
+    <!-- 大于宽度640px时才显示640pxcss样式，后面代码覆盖前面代码
+        所以改变页面大小只会展现出一种样式 -->
+    <link rel="stylesheet" href="640px.css" media="screen and (min-width: 640px)">
+</head>
+<body>
+    <div>字体随页面变化</div>
+</body>
+</html>

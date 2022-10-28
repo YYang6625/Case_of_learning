@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>品优购商城-综合网购首选-正品低价、品质保障、配送及时、轻松购物！
+    </title>
+    <!-- 网站说明 -->
+    <meta name="description"
+          content="品优购商城-专业的综合网上购物商城，销售家电、数码通讯、电脑、家电">
+          <meta name="keywords" content="网上购物，网上商城，手机，笔记本，电脑，MP3">
+    <!-- 引入favicon图标 -->
+    <link rel="shortcut icon" href="favicon.ico" />
+    <!-- 引入初始化css -->
+    <link rel="stylesheet" href="css/base.css">
+    <!-- 引入公共样式文件 -->
+    <link rel="stylesheet" href="css/common.css">
+    <!-- 引入主体部分页面样式 -->
+    <link rel="stylesheet" href="css/index.css">
+    <!-- 引入index.js文件 -->
+    <!-- <script src="index.js"></script> -->
+    <script>
+    window.addEventListener('load',function() {
+        // 运动函数封装
+    function animate(obj,target){
+        clearInterval(obj.timer);//清除重复调用的动画，防止叠加
+        obj.timer = setInterval(function(){
+        /* var obj = {};
+        obj.name = 'andy' */
+        //将周期性计时器方法作为属性赋给obj对象  属性名timer timer：setInterval(function(){}
+        //图片移动距离 / 步长 =速度 （周期性执行这个步长达到变速，因为offsetLeft是动态的）
+        var step = (target - obj.offsetLeft) / 10;  
+        //三元表达式 步长取整
+        step = step > 0 ? Math.ceil(step) : Math.floor(step);  
+        // 到达后停止
+        if(obj.offsetLeft == target){
+            clearInterval(obj.timer);
+        }
+        obj.style.left = obj.offsetLeft + step +'px';
+        },10)
+    }
+
+    // 小圆排他封装函数
+    function circleChange() {
+    // 清空所有小圆(左右点击都会使用,直接封装成函数)
+    for(var i = 0; i < ol.children.length; i++){
+            ol.children[i].className = '';
+    } 
+        // 留下当前小圆的current
+        ol.children[circle].className = 'current';
+    }
+
+//获取元素
+    var arrow_l = document.querySelector('.arrow_l');
+    var arrow_r = document.querySelector('.arrow_r');
+    var focus = document.querySelector('.focus');
+    var focus_ul = focus.querySelector('ul');
+    var focus_li = focus.querySelectorAll('li')
+    var ol = focus.querySelector('.circle');
+    var focusWidth = focus.offsetWidth;
+    focus.addEventListener('mouseenter',function(){
+        arrow_l.style.display = 'block';
+        arrow_r.style.display = 'block';
+        clearInterval(timer); //不使用就清楚赋null
+        timer = null; 
+    })
+    focus.addEventListener('mouseleave',function(){
+        arrow_l.style.display = 'none';
+        arrow_r.style.display = 'none';
+        timer = setInterval(function() {  //因为在最后已经声明了这个timer,直接使用不需要var
+        arrow_r.click();
+        },3000)
+        
+    })
+    for (var i = 0;i < focus_li.length; i++){
+        var li = document.createElement('li');
+        // 为每个li设置索引号属性  提供给后面动画
+        li.setAttribute('index',i);   
+        //随着i循环 为每一个li设置一个index数字，从0开始
+        //图片轮播动画 （移动距离=图片宽度*第几个（为每个li添加索引号index））
+        // 索引号从0开始，第一个0，达到效果点击第一个不移动，点击第二个移动一个图片距离
+        //封装移动动画函数 （有定位才能移动，改变定位top/left移动）
+        ol.appendChild(li);
+        ol.children[0].className = 'current';
+        /* var ol_li = ol.querySelector('li');  不足写法
+    ol_li.addEventListener('click',function() {
+        for(var i = 0; i < ol_li.length; i++){
+            ol_li[i].className = '';
+        }    // 创建li之后直接对其绑定事件,不需要另外循坏再创建绑定事件，提高效率
+    }) */
+        li.addEventListener('click',function() {
+            for(var i = 0; i < ol.children.length; i++){
+                // 次数为ol子元素的个数
+            ol.children[i].className = '';
+        }
+        this.className = 'current'; //点击哪个哪个生效
+        // 这里需要给current加权重，否则权重不够
+        var index = this.getAttribute('index');
+        //调用封装函数 点击一次调用一次
+        animate(focus_ul,- index * focusWidth);
+        //我们移动的是ul和图片的大小，但是其实获取不到具体数值，因为不确定产品图片个数
+        // 但是盒子的大小是和ul产品图片大小相等的，所以我们的target应该是 盒子*移动到第几个的num
+
+        // 解决点击第三个小圆再点击右箭头跳转到第二个图片和第二个小圆的bug
+        num = circle = index;
+        })
+    }
+
+    //点击左侧按钮左右滚动   (始终要理解offsetLeft是动态的,当left改变时,offsetLeft也改变了)
+    // 无缝衔接滚动(再最后一li后clone第一li然后当移动到clone时令left = 0回到最左边 ）
+    var frist_li = focus_ul.children[0].cloneNode(true);  //true 深克隆 false浅克隆
+    focus_ul.appendChild(frist_li);
+    var num = 0;
+    var circle = 0;
+    arrow_r.addEventListener('click',function() {
+        if(num == focus_ul.children.length - 1){
+            //移动到最后一个li后，再点击就是跳转到第一个li（复制第一个li）
+            // 这里有四个li，点击三次到最后一个，点击4次到第五个也就是复制的第一个li
+            // 使用点击次数和li的关系是length-1
+            // 点击到了第五个li就让点击次数置0，也使left置零
+            // 由于 num++ 这样的话下次点击就是 num=1*focusWidth   left = 0 +focusWidth 也就是第二个li
+            num = 0;
+            focus_ul.style.left = 0;
+        }
+        num++;
+        animate(focus_ul, -num * focusWidth);
+
+        // 小圆跟随箭头移动  从第一个开始 点击一次++一次
+        circle++;
+        // 由于小li复制了一个比小圆多，circle=4时也就是重新回到第一张，所以当小圆走完一遍之后要置零
+        circle = circle % ol.children.length;
+        // 调用封装函数清空所有小圆
+        circleChange();
+    })
+
+    // 右侧按钮功能   (始终要理解offsetLeft是动态的,当left改变时,offsetLeft也改变了)
+    arrow_l.addEventListener('click',function() {
+        if(num == 0){
+        // 将left值改为最后一个clone.li，再通过点击animate动画移动到倒数第二个li
+        // 因为ul是先将left变成最后一个，一共五个，left变成第五个此时的Left应该是ul.length-1*focusWidth
+        // num==0,left就变成最后那个复制的li了,num也变成最后li的
+        // 再次点击,num-- left 变成ul.length-2*focusWidth 又由于处于最后一个li,所以向左运动
+            num = focus_ul.children.length-1;
+        // 向左移动,负值   如果没加单位left没变 但是num变化了,所以就会向右运动,而不是向左运动,直到left=ul.length-2*focusWidth,也就是倒数第二个li
+            focus_ul.style.left = -num * focusWidth + 'px';
+        }
+        num--;
+        animate(focus_ul, -num * focusWidth);
+
+        // 小圆跟随左箭头移动 点击一次--次 跳转到最后一个小圆也就是下标为3/ol.children.length-1
+        circle--;
+        if(circle < 0) {
+            circle = ol.children.length-1;
+        }
+        // 或者三元表达式:circle = circle < 0 ? ol.children.length-1 : circle;
+        circleChange();
+    })
+    // 自动播放轮播图(定时器)   手动点击事件
+    var timer = setInterval(function() {
+    // 自动播放轮播图就是手动点击左按钮,js有手动点击事件,自动为我们执行某个事件
+    arrow_r.click();
+    },3000)
+    // 在开头已有鼠标经过停止这个计时器,移开启动计时器即可
+
+// 最后可以添加一给节流阀效果 令flag=true时才能执行左右按钮事件 也就是左右按钮事件完成再令flag=true
+// 也就是再animate()内再添加一个回调函数 函数内令flag=true,在左右点击按钮事件内先添加if条件,为ture时
+// 再执行if内的左右按钮原本的功能
+
+//  if和  && 运算符有类似功能
+})
+    </script>
+</head>
+
+<body>
+    <!-- 快捷导航模块 start -->
+    <section class="shortcut">
+        <section class="w">
+            <div class="fl">
+                <ul>
+                    <li>品优购欢迎您! &nbsp;</li>
+                    <li>请登录 &nbsp; <a href="register.html" target="_blank" class="style-red">免费注册</a></li>
+                </ul>
+            </div>
+            <div class="fr">
+                <ul>
+                    <li><a href="#" class="arrow-icon frfrist">网站导航</a></li>
+                    <li></li>
+                    <li><a href="#" class="arrow-icon">客户服务</a></li>
+                    <li></li>
+                    <li><a href="#" class="arrow-icon">关注品优购</a></li>
+                    <li></li>
+                    <li><a href="#">企业采购</a></li>
+                    <li></li>
+                    <li><a href="#">品优购会员</a></li>
+                    <li></li>
+                    <li><a href="#" class="arrow-icon">我的品优购</a></li>
+                    <li></li>
+                    <li><a href="#">我的订单</a></li>
+                </ul>
+            </div>
+        </section>
+    </section>
+    <!-- 快捷模块 end -->
+    <!-- header头部模块 start -->
+    <header class="header w">
+        <!-- logo模块（重要） -->
+        <div class="logo">
+            <!-- logo里面放h1，目的提权，告诉搜索引擎重要 -->
+            <!-- h1里面放a链接返回首页 -->
+            <!-- 链接里面要放网站名称，用于搜索引擎收录 -->
+            <!-- 添加title标签利于网页记录 -->
+            <h1>
+                <a href="index.html" title="品优购商城">品优购商城</a>
+            </h1>
+        </div>
+        <div class="search">
+            <input type="search" placeholder="语言开发">
+            <button>搜索</button>
+        </div>
+        <!-- hotwords关键词模块 -->
+        <div class="hotwords">
+            <!-- hotwords盒子绝对位置而不是a -->
+            <a href="#"> 优惠购首发</a>
+            <a href="#"> 亿元优惠</a>
+            <a href="#"> 9.9元团购</a>
+            <a href="#"> 美满99减30</a>
+            <a href="#"> 办公用品</a>
+            <a href="#"> 电脑</a>
+            <a href="#"> 通信 </a>
+        </div>
+        <!-- shopcar购物车模块 -->
+        <div class="shopcar">
+            <a href="index.html">我的购物车</a>
+            <div class="count">8</div>
+        </div>
+    </header>
+    <!-- header头部模块 end -->
+    <!-- nav导航模块 start -->
+    <nav class="nav">
+        <div class="w">
+            <div class="dropdown">
+                <!-- dt和dd浮动排列两个大盒子才在一行，如果就li排列则items会排列在商品小li的最下面的左边（布局排布） -->
+                <div class="dt">全部商品种类</div>
+                <div class="dd">
+                    <ul>
+                        <li><a href="#">家用电器</a></li>
+                        <li><a href="#">手机、数码、通信</a></li>
+                        <li><a href="#">电脑、办公</a></li>
+                        <li><a href="#">家居、家具、家装、厨具</a></li>
+                        <li><a href="#">男装、女装、童装、内衣</a></li>
+                        <li><a href="#">个户化妆、清洁用品、宠物</a></li>
+                        <li><a href="#">鞋靴、箱包、珠宝、奢侈品</a></li>
+                        <li><a href="#">运动户外、钟表</a></li>
+                        <li><a href="#">汽车、汽车用品</a></li>
+                        <li><a href="#">母婴、玩具乐器</a></li>
+                        <li><a href="#">食品、酒类、生鲜、特产</a></li>
+                        <li><a href="#">医药保健</a></li>
+                        <li><a href="#">图书、音像、电子书</a></li>
+                        <li><a href="#">彩票、旅行、充值、票务</a></li>
+                        <li><a href="#">理财、众筹、白条、保险</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="navitems">
+                <ul>
+                    <li> <a href="">服装城美妆馆</a></li>
+                    <li> <a href="">美妆馆</a></li>
+                    <li> <a href="">传智超市</a></li>
+                    <li> <a href="">全球购</a></li>
+                    <li> <a href="">闪购 </a></li>
+                    <li> <a href="">团购</a></li>
+                    <li> <a href="">拍卖 </a></li>
+                    <li> <a href="">有趣</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- nav导航栏 end -->
+    <!-- main模块开始 -->
+    <div class="w">
+        <div class="main">
+    <!-- focus焦点图模块，newsflash快报模块 -->
+    <div class="focus">
+            <!-- 后期学习js来实现图片之间的转换 -->
+            <!-- 学js后回来制作轮播效果 -->
+            <!-- 为什么这里的focus模块没有遮住哪个下拉列表呢,因为整个模块都margin-left留开了位置 -->
+            <!-- 左侧按钮 -->
+            <a href="javascript:;" class="arrow_l"></a>
+            <!-- 右侧按钮 -->
+            <a href="javascript:;" class="arrow_r"></a>
+            <ul>
+                <li class="">
+                    <img src="upload(产品类图片)/focus.jpg" alt="" class="pointer">
+                </li>
+                <li>
+                    <img src="upload(产品类图片)/focus1.jpg" alt="" class="pointer">
+                </li>
+                <li>
+                    <img src="upload(产品类图片)/focus2.jpg" alt="" class="pointer">
+                </li>
+                <li>
+                    <img src="upload(产品类图片)/focus3.jpg" alt="" class="pointer">
+                </li>
+            </ul>
+            <ol class="circle">
+            </ol>
+    </div>
+    <div class="newsflash">
+        <div class="news">
+            <div class="news-hd">
+                <h5>品优购快报</h5>
+                <a href="" class="more">更多</a>
+            </div>
+            <div class="news-bd">
+                <ul>
+                    <li><a href=""><strong>[重磅]</strong>备战开学季全民半价购数码，超出部分用省略号显示</a></li>
+                    <li><a href=""><strong>[重磅]</strong> 品优稳占家电网购六成份额，超出部分用省略号显示</a></li>
+                    <li><a href=""><strong>[重磅]</strong>百元中秋全品类礼券限量领，超出部分用省略号显示</a></li>
+                    <li><a href=""><strong>[重磅]</strong>上品优生鲜享阳澄湖太闸蟹，超出部分用省略号显示</a></li>
+                    <li><a href=""><strong>[重磅]</strong> 每日享折扣品优品质游，超出部分用省略号显示</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 学习完js回来改精灵图简单许多 -->
+        <div class="lifeservice" class="pointer">
+            <ul>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+                <li>
+                    <a href=""><i></i>
+                    <p>话费</p>
+                </a>
+            </ul>
+        </div>
+        <div class="bargain">
+            <img src="upload(产品类图片)/focus2.png" alt="" class="pointer">
+        </div>
+    </div>
+        </div>
+    </div>
+    <!-- main模块 结束 -->
+    <!-- 页面推荐模块 start -->
+    <div class="w recom">
+        <div class="recom-hd"><a href=""><img src="images/今日推荐.png" alt=""></a></div>
+        <div class="recom-bd"><ul>
+            <li><a href=""><img src="upload(产品类图片)/recom_01.jpg" alt=""></a></li>
+            <li><a href=""><img src="upload(产品类图片)/recom_02.jpg" alt=""></a></li>
+            <li><a href=""><img src="upload(产品类图片)/recom_03.jpg" alt=""></a></li>
+            <li><a href=""><img src="upload(产品类图片)/recom_04.jpg" alt=""></a></li>
+        </ul></div>
+            </div>
+    <!-- 页面推荐模块 end -->
+    <!-- 猜你喜好模块 start-->
+    <div class="w like">
+        <div class="like-hd">
+            <h4>猜你喜欢</h4>
+            <a href="">换一批</a>
+        </div>
+        <div class="like-bd">
+            <ul>
+                <li>
+                    <a href="list.html" target="_blank">
+                        <div><img src="upload(产品类图片)/图层152.png" alt=""></div>
+                        <h5>阳光美包新款单肩包女<br>包时尚子母包四件套女</h5>
+                    <span>¥116.00</span>
+                </a>
+            </li>
+                <li>
+                    <a href="list.html" target="_blank">
+                        <div><img src="upload(产品类图片)/图层153.png" alt=""></div>
+                        <h5>爱仕达 30CM炒锅不粘锅<br>NWG8330E电磁炉炒</h5>
+                    <span>¥99</span>
+                </a>
+            </li>
+                <li>
+                    <a href="list.html" target="_blank">
+                        <div><img src="upload(产品类图片)/图层154.png" alt=""></div>
+                        <h5>捷波朗<br>(jabra)BOOSI劲步</h5>
+                    <span>¥245</span>
+                </a>
+            </li>
+                <li>
+                    <a href="list.html" target="_blank">
+                        <div><img src="upload(产品类图片)/图层156.png" alt=""></div>
+                        <h5>欧普<br>JYLZ08面板灯平板灯铝</h5>
+                    <span>¥238</span></a>
+                </li>
+                <li>
+                    <a href="list.html" target="_blank">
+                        <div><img src="upload(产品类图片)/图层158.png" alt=""></div>
+                        <h5>三星<br>(G5500)移动联</h5>
+                    <span>¥649</span>
+                </a>
+            </li>
+                <li>
+                    <a href="list.html" target="_blank">
+                        <div><img src="upload(产品类图片)/图层159.png" alt=""></div>
+                        <h5>韩国所望<br>紧致湿润精华露400ml</h5>
+                    <span>¥649</span>
+                </a>
+            </li>
+            </ul>
+        </div>
+    </div>
+    <!-- 猜你喜欢模块 end -->
+    <!-- 楼层模块 start -->
+    <div class="floor">
+        <!-- 一楼家用电器 -->
+        <div class="w jiadian">
+            <div class="box-hd">
+                <h3>家用电器</h3>
+                <div class="tab_list">
+                    <ul>
+                        <li><a href="" class="style-red">热门</a></li>
+                        <li></li>
+                        <li><a href="">大家电</a></li>
+                        <li></li>
+                        <li><a href="">生活电器</a></li>
+                        <li></li>
+                        <li><a href="">厨房电器</a></li>
+                        <li></li>
+                        <li><a href="">个护健康</a></li>
+                        <li></li>
+                        <li><a href="">应季电器</a></li>
+                        <li></li>
+                        <li><a href="">空气/净水</a></li>
+                        <li></li>
+                        <li><a href="">新奇特</a></li>
+                        <li></li>
+                        <li><a href="">高端电器</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box-bd">
+                <div class="tab_content">
+                    <div class="tab_list_item">
+                        <div class="col_209">
+                                <ul>
+                                    <li> <a href="">节能补贴</a></li>
+                                    <li><a href="">4K电视</a></li>
+                                    <li><a href="">空气净化器</a></li>
+                                    <li><a href="">IH电饭煲</a></li>
+                                    <li><a href="">滚筒洗衣机</a></li>
+                                    <li><a href="">电热水器</a></li>
+                                </ul>
+                            <div>
+                                    <a href="list.html" target="_blank">
+                                        <p>三星曲面电视</p>
+                                        <span>抽奖送豪礼</span>
+                                        <img src="upload(产品类图片)/图层110.png" alt="">
+                                    </a>
+                            </div>
+                        </div>
+                        <div class="col_329">
+                            <div>
+                                <a href="list.html" target="_blank">
+                                    <p>烧水壶智能光控泡茶壶茶具套装</p>
+                                    <span>满299.00减40.00</span>
+                                    <img src="upload(产品类图片)/图层118拷贝.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col_220">
+                            <div>
+                                <a href="list.html" target="_blank">
+                                    <p>每满200减20元</p>
+                                    <span>烘培节1元抢购</span>
+                                  <img src="upload(产品类图片)/图层114.png" alt="">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="list.html" target="_blank">
+                                    <p>买乐视电视享钜惠</p>
+                                <span>送60个月会员</span>
+                               <img src="upload(产品类图片)/图层116.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col_220_1">
+                            <div>
+                                <a href="list.html" target="_blank">
+                                    <p>8.20彩电宅购节</p>
+                                    <span>65寸4K智能电视3799</span>
+                                   <img src="upload(产品类图片)/图层113.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col_220">
+                            <div>
+                                <a href="list.html" target="_blank">
+                                    <p>消暑神器全场领券</p>
+                                    <span>1元领空调</span>
+                                   <img src="upload(产品类图片)/图层115.png" alt="">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="list.html" target="_blank">
+                                    <p>智能风扇等你来领</p>
+                                    <span>领取优惠五折购</span>
+                                   <img src="upload(产品类图片)/图层117.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 二楼手机通讯 -->
+        <div class="w tongxun">
+            <div class="box-hd">
+                <h3>家用电器</h3>
+                <div class="tab_list">
+                    <ul>
+                        <li><a href="" class="style-red">热门</a></li>
+                        <li></li>
+                        <li><a href="">大家电</a></li>
+                        <li></li>
+                        <li><a href="">生活电器</a></li>
+                        <li></li>
+                        <li><a href="">厨房电器</a></li>
+                        <li></li>
+                        <li><a href="">个护健康</a></li>
+                        <li></li>
+                        <li><a href="">应季电器</a></li>
+                        <li></li>
+                        <li><a href="">空气/净水</a></li>
+                        <li></li>
+                        <li><a href="">新奇特</a></li>
+                        <li></li>
+                        <li><a href="">高端电器</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="box-bd">
+                <div class="tab_content">
+                    <div class="tab_list_item">
+                        <div class="col_209">                     
+                                <ul>
+                                <li> <a href="">节能补贴</a></li>
+                                <li><a href="">4K电视</a></li>
+                                <li><a href="">空气净化器</a></li>
+                                <li><a href="">IH电饭煲</a></li>
+                                <li><a href="">滚筒洗衣机</a></li>
+                                <li><a href="">电热水器</a></li>
+                            </ul>
+                            <div>
+                                    <a href="list.html" target="_blank">
+                                        <p>三星曲面电视</p>
+                                        <span>抽奖送豪礼</span>
+                                        <img src="upload(产品类图片)/图层182.png" alt="">
+                                    </a>
+                            </div>
+                        </div>
+                        <div class="col_329">
+                            <div>
+                                <a href="list.html" target="_blank">
+                                    <p>烧水壶智能光控泡茶壶茶具套装</p>
+                                    <span>满299.00减40.00</span>
+                                    <img src="upload(产品类图片)/图层183.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col_220">
+                            <div>
+                                <a href="list.html" target="_blank">
+                                    <p>每满200减20元</p>
+                                    <span>烘培节1元抢购</span>
+                                  <img src="upload(产品类图片)/图层187.png" alt="">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="list.html" target="_blank">
+                                    <p>买乐视电视享钜惠</p>
+                                <span>送60个月会员</span>
+                               <img src="upload(产品类图片)/图层189.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col_220_1">
+                            <div>
+                                <a href="list.html"  target="_blank">
+                                    <p>8.20彩电宅购节</p>
+                                    <span>65寸4K智能电视3799</span>
+                                   <img src="upload(产品类图片)/图层186.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col_220">
+                            <div>
+                                <a href="list.html" target="_blank">
+                                    <p>消暑神器全场领券</p>
+                                    <span>1元领空调</span>
+                                   <img src="upload(产品类图片)/图层188.png" alt="">
+                                </a>
+                            </div>
+                            <div>
+                                <a href="list.html" target="_blank">
+                                    <p>智能风扇等你来领</p>
+                                    <span>领取优惠五折购</span>
+                                   <img src="upload(产品类图片)/图层190.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <!-- 楼层模块 end -->
+    <!-- footer底部模块 start -->
+    <footer class="footer">
+        <div class="w">
+            <div class="mod-service">
+                <ul>
+                    <li>
+                        <h5 class="f1"></h5>
+                        <div class="service-txt">
+                            <h4>正品保障</h4>
+                            <p>正品保障，提供发票</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h5 class="f2"></h5>
+                        <div class="service-txt">
+                            <h4>极速物流</h4>
+                            <p>急速物流，急速送达</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h5 class="f3"></h5>
+                        <div class="service-txt">
+                            <h4>无忧售后</h4>
+                            <p>7天无理由退换货</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h5 class="f4"></h5>
+                        <div class="service-txt">
+                            <h4>特色服务</h4>
+                            <p>私人定制家电套餐</p>
+                        </div>
+                    </li>
+                    <li>
+                        <h5 class="f5"></h5>
+                        <div class="service-txt">
+                            <h4>帮助中心</h4>
+                            <p>您的购物指南</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="mod-help">
+                <dl>
+                    <dt>购物指南</dt>
+                    <dd>购物流程</dd>
+                    <dd>会员介绍</dd>
+                    <dd>生活旅行/团购</dd>
+                    <dd>常见问题</dd>
+                    <dd>大家电</dd>
+                    <dd>联系客服</dd>
+                </dl>
+                <dl>
+                    <dt>配送方式</dt>
+                    <dd>购物流程</dd>
+                    <dd>会员介绍</dd>
+                    <dd>生活旅行/团购</dd>
+                    <dd>常见问题</dd>
+                    <dd>大家电</dd>
+                    <dd>联系客服</dd>
+                </dl>
+                <dl>
+                    <dt>支付方式</dt>
+                    <dd>购物流程</dd>
+                    <dd>会员介绍</dd>
+                    <dd>生活旅行/团购</dd>
+                    <dd>常见问题</dd>
+                    <dd>大家电</dd>
+                    <dd>联系客服</dd>
+                </dl>
+                <dl>
+                    <dt>售后服务</dt>
+                    <dd>购物流程</dd>
+                    <dd>会员介绍</dd>
+                    <dd>生活旅行/团购</dd>
+                    <dd>常见问题</dd>
+                    <dd>大家电</dd>
+                    <dd>联系客服</dd>
+                </dl>
+                <dl>
+                    <dt>特色服务</dt>
+                    <dd>购物流程</dd>
+                    <dd>会员介绍</dd>
+                    <dd>生活旅行/团购</dd>
+                    <dd>常见问题</dd>
+                    <dd>大家电</dd>
+                    <dd>联系客服</dd>
+                </dl>
+                <dl>
+                    <dt>帮助中心</dt>
+                    <dd><img src="images/图层129.png" alt="">
+                        品优购客户端</dd>
+                </dl>
+            </div>
+            <div class="mod-copyright">
+                <div class="link">
+                    <ul>
+                        <li><a href="#">关于我们</a></li>
+                        <li></li>
+                        <li><a href="#">联系我们</a></li>
+                        <li></li>
+                        <li><a href="#">联系客服</a></li>
+                        <li></li>
+                        <li><a href="#">商家入驻</a></li>
+                        <li></li>
+                        <li><a href="#">营销中心</a></li>
+                        <li></li>
+                        <li><a href="#">手机品优购</a></li>
+                        <li></li>
+                        <li><a href="#">友情链接</a></li>
+                        <li></li>
+                        <li><a href="#">销售联盟</a></li>
+                        <li></li>
+                        <li><a href="#">品优购社区</a></li>
+                        <li></li>
+                        <li><a href="#">品优购工艺</a></li>
+                        <li></li>
+                        <li><a href="#">English Site</a></li>
+                        <li></li>
+                        <li><a href="#">Contact U</a></li>
+                    </ul>
+                </div>
+                <div class="copyright">
+                    <p>地址：北京市昌平区建材城西路金燕龙办公楼一层 邮编：100096 电话：400-618-4000 传真：010-82935100 邮箱: zhanghj+itcast.cn <br>
+                        京ICP备08001421号京公网安备110108007702</p>
+                </div>
+            </div>
+            <!-- copyright可以里面再套一个盒子使盒子居中 -->
+            <!-- 或者使copyright相对定位,再内部内容进行绝对定位 -->
+        </div>
+    </footer>
+    <!-- footer底部模块 end -->
+</body>
+
+</html>

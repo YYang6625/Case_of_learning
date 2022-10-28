@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>3D旋转风车</title>
+    <style>
+      body {
+        perspective: 700px;
+      }
+      @keyframes rotate {
+        0% {
+          transform: rotateY(0);
+        }
+        100% {
+          transform: rotateY(360deg);
+        }
+      }
+      section {
+        position: relative;
+        /* 父级给子级添加呈现3d */
+        transform-style: preserve-3d;
+        width: 300px;
+        height: 200px;
+        margin: 300px auto;
+        background: url(media/pig.jpg);
+        animation: rotate 10s linear infinite;
+      }
+      section:hover {
+        animation-play-state: paused;
+      }
+      section div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* background:url(CSS3进阶素材-包含小熊动画/media/dog.jpg); */
+      }
+      section div:nth-child(1) {
+        transform: translateZ(300px);
+      }
+      section div:nth-child(2) {
+        transform: rotateY(60deg) translateZ(300px);
+      }
+      section div:nth-child(3) {
+        transform: rotateY(120deg) translateZ(300px);
+      }
+      section div:nth-child(4) {
+        transform: rotateY(180deg) translateZ(300px);
+      }
+      section div:nth-child(5) {
+        transform: rotateY(240deg) translateZ(300px);
+      }
+      section div:nth-child(6) {
+        transform: rotateY(300deg) translateZ(300px);
+      }
+      /* z轴为图片原本朝向的位置，随旋转改变*/
+      /* 通过测试发现，旋转后图片中心轴发生改变，随着旋转角度改变，所以以上移动方向均为正值 */
+      /* 移动都是建立在随图片旋转后的z轴之上，均是朝着旋转后的轴移动所以均为正值 */
+      section div img {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div><img src="media/scale.jpg" alt="" /></div>
+      <div><img src="media/scale.jpg" alt="" /></div>
+      <div><img src="media/scale.jpg" alt="" /></div>
+      <div><img src="media/scale.jpg" alt="" /></div>
+      <div><img src="media/scale.jpg" alt="" /></div>
+      <div><img src="media/scale.jpg" alt="" /></div>
+    </section>
+  </body>
+</html>

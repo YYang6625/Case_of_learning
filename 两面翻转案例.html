@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>两面翻转案例</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            perspective: 400px;
+        }
+        .box{
+            position: relative;
+            /* 给父级添加3d呈现效果 */
+            transform-style: preserve-3d;
+            width: 300px;
+            height: 300px;
+            margin: 200px auto;
+            line-height: 300px;
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            transition: all 1s;
+        }
+        .front,.back{
+            /* 使用定位使两盒子叠在一起 */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: skyblue;
+            /* 使front盒子在前面 */
+            z-index: 1;
+            border-radius: 50%;
+            backface-visibility: hidden;
+        }
+        .back{
+            background-color: yellow;
+            transform: rotateY(180deg);
+        }
+        .box:hover {
+            transform: rotateY(180deg);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="front">加油啊扬,嘿嘿</div>
+        <div class="back">我会坚持的</div>
+    </div>
+</body>
+</html>

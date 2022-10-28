@@ -1,0 +1,46 @@
+body {
+  background-color: deeppink;
+}
+div {
+  color: deeppink;
+  font-size: 14px;
+}
+.header {
+  width: 200px;
+  height: 200px;
+  background-color: skyblue;
+}
+.header a {
+  color: red;
+}
+.header ul li {
+  float: left;
+}
+.header .logo {
+  color: pink;
+}
+.nav a:hover {
+  color: aqua;
+}
+.nav ul li:nth-child(2n) {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  background-color: black;
+}
+.nav ul li::before {
+  content: "";
+}
+div[class^="ico"] {
+  font-size: 20px;
+}
+.copyright .copy .right {
+  color: aqua;
+}
+.copright .cop .ight {
+  color: aqua;
+}
+img {
+  width: 10 rem;
+  height: 14.28571429rem;
+}

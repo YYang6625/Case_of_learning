@@ -1,0 +1,426 @@
+.pointer {
+    cursor: pointer;
+}
+
+.main {
+    width: 980px;
+    height: 455px;
+    margin-left: 220px;
+    margin-top: 11px;
+}
+.circle .current {
+    background-color: orange;
+}
+.main .focus {
+    position: relative;
+    overflow: hidden;
+    float: left;
+    width: 721px;
+    height: 455px;
+    background-color: red;
+}
+.arrow_l,.arrow_r {
+    position: absolute;
+    display: none;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 32px;
+    z-index: 2;
+}
+.arrow_l {
+    background: url(../images/arrow-prev.png) no-repeat;
+}
+.arrow_r {
+    right: 0;
+    background: url(../images/arrow-next.png) no-repeat;
+}
+.circle {
+    position: absolute;
+    height: 15px;
+    bottom: 15px;
+    left: 50%;
+    transform: translate(-50%,0);
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 6px;
+    z-index: 2;
+}
+.circle li {
+    float: left;
+    margin: 2px 4px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background-color: #fff;
+    cursor: pointer;
+}
+/* 增大ul宽度去装li */
+/* newflash不在下面是由于,这个模块也是浮动的 */
+/* ul增大由于浮动特性是不会挤开右边这个浮动newfalash盒子 */
+.main .focus ul {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 1000%;
+}
+.main .focus ul li {
+    float: left;
+}
+/* 这里不应该是向右浮动,应该想左,如果不是w版心约束了,由于main的margin-left,向右浮动应该是在版心外面了 */
+/* 但是由于focus要做动画要给定位，向左浮动就会贴上去，最终还是要利用w版心约束来靠右 */
+.main .newsflash {
+    float: right;
+    width: 250px;
+    height: 455px;
+}
+.newsflash .news {
+    height: 165px;
+    border: 1px solid #e4e4e4;
+}
+
+.newsflash .news-hd {
+    height: 33px;
+    line-height: 33px;
+    border-bottom: 1px dotted #e4e4e4;
+    padding: 0 15px;
+}
+.news-hd h5 {
+    float: left;
+    font-size: 14px;
+    color: #333;
+}
+.news-hd .more {
+    float: right;
+    font-size: 12px;
+    color: #666;
+}
+.news-hd .more::after {
+    font-family: 'icomoon';
+    content: '\e906';
+}
+.news-bd {
+    padding: 5px 15px 0;
+}
+.news-bd ul li {
+    height: 24px;
+    line-height: 24px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.newsflash .lifeservice {
+    overflow: hidden;
+    height: 210px;
+    border: 1px solid #e4e4e4;
+    border-top: 0;
+}
+.newsflash .lifeservice ul {
+    width: 252px;
+}
+.newsflash .lifeservice ul li {
+    float: left;
+    width: 63px;
+    height: 70px;
+    border-right: 1px solid #e4e4e4;
+    border-bottom: 1px solid #e4e4e4;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+.newsflash .lifeservice ul li a {
+    display: block;
+}
+.lifeservice ul li i {
+    display: inline-block;
+    margin-top: 13px;
+    width: 19px;
+    height: 24px;
+}
+.lifeservice ul li i {
+    background: url(../images/icons.png) no-repeat -19px -16px;
+}
+/* 后面学习js回来改精灵图更简单 */
+.newsflash .bargain {
+    margin-top: 5px;
+}
+/* 推荐模块 */
+.recom {
+    height: 163px;
+    margin-top: 12px;
+}
+.recom .recom-hd {
+    float: left;
+    width: 206px;
+    background-color: #5c5251;
+}
+.recom .recom-bd {
+    float: left;
+}
+.recom .recom-bd ul li {
+    position: relative;
+    float: left;
+}
+
+.recom .recom-bd ul li:nth-child(-n+3)::after {
+    /* 为什么这里改成3-n就做不出灰色线条效果 */
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 10px;
+    width: 1px;
+    height: 143px;
+    background-color: #ddd;
+}
+/* 猜你喜欢模块 */
+.like {
+    height: 292px;
+}
+.like .like-hd {
+    height: 59px;
+    padding-top: 30px;
+}
+.like-hd h4 {
+    display: block;
+    float: left;
+    font-weight: 400;
+    font-size: 18px;
+    color: #333;
+}
+.like-hd a {
+    display: block;
+    float: right;
+    margin-right: 45px;
+    font-size: 12px;
+    color: #666;
+}
+.like .like-hd a:hover {
+    color: red;
+}
+
+.like .like-bd {
+    height: 233px;
+    text-align: center;
+    border: 1px solid #ededed;
+}
+.like-bd ul li {
+    position: relative;
+    display: block;
+    float: left;
+    width: 201px;
+    padding-top: 10px;
+}
+/* 给产品添加遮罩效果 */
+/* 如何解决添加遮罩之后链接遮挡问题 */
+/* 遮罩利用pointer-event：none 解决 */
+/* 元素永远不会成为鼠标事件的target。但是，当其后代元素的pointer-events属性指定其他值时，鼠标事件可以指向后代元素，在这种情况下，鼠标事件将在捕获或冒泡阶触发父元素的事件侦听器。  */
+.like-bd ul li::before {
+    content: '';
+    display: none;
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+}
+.like-bd ul li:hover::before {
+    display: block;
+}
+.like-bd ul li:nth-child(6n) {
+    width: 190px;
+}
+.like-bd ul li:nth-child(-n+5)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 160px;
+    width: 1px;
+    height: 62px;
+    background-color: #ededed;
+}
+.like-bd ul li div {
+    height: 150px;
+    line-height: 150px;
+}
+.like-bd ul li h5 {
+    font-size: 12px;
+    font-weight: 400;
+    color: #666;
+}
+.like-bd ul li span {
+    display: block;
+    font-weight: 700;
+    font-size: 18px;
+    color: #df3033;
+    padding-top: 10px;
+}
+/* 家用电器模块 */
+.floor .w {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+/* 制作偏移动画效果 */
+.floor div {
+    transition: all 0.3s;
+}
+.floor div[class^="col"] div:hover {
+    transform: translateX(8px);
+}
+/* 效果完成 */
+.box-hd {
+    height: 30px;
+    border-bottom: 2px solid #c81623;
+}
+.box-hd h3 {
+    float: left;
+    font-size: 18px;
+    font-weight: 400;
+    color: #c81623;
+}
+.tab_list {
+    float: right;
+}
+.tab_list ul li {
+    float: left;
+    line-height: 30px;
+}
+.tab_list ul li:nth-child(even) {
+    margin-top: 9px;
+    width: 1px;
+    height: 12px;
+    background-color: #999;
+}
+.tab_list ul li a {
+    font-size: 12px;
+    color: #666;
+    margin: 0 16px 0 14px;
+}
+.tab_list ul li a:hover {
+    color: #c81623;
+}
+.box-bd {
+    height: 361px;
+}
+/* 最近一级的div */
+.tab_list_item>div {
+    float: left;
+    height: 361px;
+}
+
+.col_329 {
+    position: relative;
+    width: 329px;
+    background-color: #aed6d8;
+}
+.col_329 div:nth-of-type(2){
+    background-color: #066c7d;
+}
+.col_220,.col_220_1 {
+    overflow: hidden;
+    width: 220px;
+}
+.col_209 {
+    position: relative;
+    width: 209px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+.col_209 ul {
+    height: 100px;
+    padding-left: 12px;
+}
+.col_209 ul li {
+    float: left;
+    line-height: 33px;
+    width: 86px;
+    height: 33px;
+    border-bottom: 1px solid #ededed;
+    margin-right: 10px;
+}
+.col_209 div {
+    height: 261px;
+}
+.col_209 div a{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.col_209 div p {
+    padding-top: 20px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #c81623;
+}
+.col_209 div span {
+    font-size: 12px;
+    color: #c81623;
+}
+.col_209 div img {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding-top: 40px;
+}
+.col_329 p {
+    padding-top: 45px;
+    padding-left: 30px;
+    font-size: 18px;
+    color: #066c7d;
+}
+.col_329 span {
+    padding-left: 30px;
+    font-size: 16px;
+    color: #066c7d;
+}
+.col_329 img {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.col_220_1 {
+    border-left: 1px solid #ededed;
+    border-right: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
+}
+.col_220_1 div{
+    position: relative;
+    height: 100%;
+    text-align: center;
+}
+.col_220_1 p{
+    padding-top: 72px;
+    font-size: 18px;
+}
+.col_220_1 span{
+    font-size: 16px;
+    color: #999;
+}
+.col_220_1 img {
+    position: absolute;
+    top: 195px;
+    left: 50%;
+    transform: translate(-50%,0);
+}
+.col_220 div {
+    position: relative;
+    height: 50%;
+    border-bottom: 1px solid #ededed;
+}
+.col_220 p {
+    padding-top: 20px;
+    padding-left: 15px;
+    font-size: 16px;
+    color: #000;
+}
+.col_220 span {
+    padding-left: 15px;
+    font-size: 16px;
+    color: #e60012;
+}
+.col_220 div img {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3d导航栏</title>
+    <style>
+        body {
+            perspective: 300px;
+            /* 父级以上添加透视产生三维效果 */
+        }
+        li {
+            list-style: none;
+        }
+        ul {
+            margin: 100px;
+        }
+        ul li {
+            float: left;
+            margin: 5px;
+            width: 120px;
+            height: 35px;
+        }
+        .box {
+            position: relative;
+            /* 一定是在父级添加子元素的3d空间环境,呈现3d效果 */
+            transform-style: preserve-3d;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            line-height: 35px;
+            font-weight: 700;
+            color: brown;
+            transition: all 0.6s;
+        }
+        .front,.bottom {
+            position:absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .front {
+            transform: translateZ(17.5px);
+            background-color: skyblue;
+            z-index: 1;
+        }
+        .bottom {
+            transform: translateY(17.5px) rotateX(-90deg);
+            background-color: yellow;
+        }
+        .box:hover {
+            transform: rotateX(90deg);
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <ul>
+            <li>
+                <div class="box">
+                    <div class="front">前端学习</div>
+                    <div class="bottom">继续努力</div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <div class="front">前端学习</div>
+                    <div class="bottom">继续努力</div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <div class="front">前端学习</div>
+                    <div class="bottom">继续努力</div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <div class="front">前端学习</div>
+                    <div class="bottom">继续努力</div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <div class="front">前端学习</div>
+                    <div class="bottom">继续努力</div>
+                </div>
+            </li>
+            <li>
+                <div class="box">
+                    <div class="front">前端学习</div>
+                    <div class="bottom">继续努力</div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>

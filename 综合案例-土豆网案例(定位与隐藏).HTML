@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .tudou {
+            position: relative;
+            width: 444px;
+            height: 320px;
+            margin: 30px auto;
+        }
+
+        .tudou img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .mask {
+            display: none;
+            /* 先隐藏遮罩层,再给hover鼠标经过时显示 */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        /* 鼠标经过时显示盒子 */
+        .tudou:hover .mask {
+            /* 显示元素display:block */
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="tudou">
+        <img src="参考照片.jpg" alt="">
+        <div class="mask"></div>
+        <!-- 白色遮罩不占位置使用绝对定位(同一盒子内) -->
+    </div>
+</body>
+
+</html>

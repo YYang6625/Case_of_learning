@@ -1,0 +1,76 @@
+// <!-- 扩展弥补css无法计算，利于计算盒子高度宽度rem，使大小随页面改变而改变 -->
+// <!-- 页面宽度改变——改变后赋予不同HTML的font-size——进而改变rem大小——然后改变盒子字体等大小 -->
+// 变量名区分大小写
+// 方便之处，定义变量，利于后期用户要求的修改维护，例如
+@color: deeppink;
+@font14: 14px;
+// 书写的样式可以转换成css
+body {
+    background-color: @color
+}
+div {
+    color: @color;
+    font-size: @font14;
+}
+// 保存后插件easy less会之间转化为css，以下使需要注意的事项
+// less书写样式：less嵌套
+// 子元素直接写入样式里面即可
+.header {
+    width: 200px;
+    height: 200px;
+    background-color: skyblue;
+    a {
+        color: red;
+    }
+    ul li {
+        float: left;
+    }
+    .logo {
+        color: pink;
+    }
+}
+// 伪类选择器与类选择器，子代选择器写法
+// 在需要的选择器括号内添加 & 符号 不加将会被当作后代
+.nav {
+    a {
+        &:hover {
+            color: aqua;
+        }
+    }
+    ul li {
+        &:nth-child(2n) {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            background-color: black;
+        }
+    }
+    ul li {
+        &::before {
+            content: "";
+        }
+    }
+}
+div[class^="ico"] {
+    font-size: 20px;
+}
+// 以下两种后代选择均可
+.copyright {
+    .copy .right{
+        color: aqua;
+    }
+}
+.copright {
+    .cop {
+        .ight{
+            color: aqua;
+        }
+    }
+}
+// less运算与单位:less弥补了css无法运算的缺陷
+// 运算符两边需要加空格,例如css内calc中的运算符
+// 如果两数值均有单位,以第一个单位为准,例如第二行,除法需要加括号
+img {
+    width: (200/20)rem;
+    height: (200rem/@font14);
+}
